@@ -4,7 +4,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'Reality12',
-    database: 'join_us'
+    database: 'daycare_database'
 });
 
 const createDatabase = (dbName) => {
@@ -15,6 +15,15 @@ const createDatabase = (dbName) => {
         console.log(`${dbName} created!`)
     });
 
+}
+
+const selectDatabase = (dbName) => {
+    const query = `USE ${dbName}`
+
+    connection.query(query, function (err, result, field) {
+        if (err) throw err;
+        console.log(`Now using ${dbName} as database`)
+    })
 }
 
 const createTable = (table) => {
@@ -36,17 +45,14 @@ const createTableQuery = (table) => {
 }
 
 
-const children = {
-    tableName: 'children',
-    columns: [
-        { field: 'id', type: 'INTEGER', null: 'NOT NULL', key: 'PRIMARY KEY', default: null, extra: 'AUTO_INCREMENT' },
-        { field: 'first_name', type: 'VARCHAR(255)', null: 'NOT NULL', key: null, default: null, extra: null },
-        { field: 'last_name', type: 'VARCHAR(255)', null: 'NOT NULL', key: null, default: null, extra: null },
-        { field: 'birth_date', type: 'DATE', null: 'NOT NULL', key: null, default: null, extra: null },
-    ]
-}
+
+
+
 
 createTable(children)
+//selectDatabase('daycare_database');
+
+// connection.end()
 
 module.exports = {
     connection: connection
