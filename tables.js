@@ -57,5 +57,34 @@ const tables = [
         ]
 
     },
+    {
+        tableName: 'visits',
+        columns: [
+            id,
+            createColumn('visit_date', 'TIMESTAMP'),
+            createColumn('visit_cost', 'DECIMAL'),
+            createColumn('paid_for', 'BOOLEAN'),
+        ]
+
+    },
+    {
+        tableName: 'children_visits',
+        columns: [
+            id,
+            createColumn('visit_id', 'INTEGER', 'FOREIGN KEY'),
+            createColumn('child_id', 'INTEGER', 'FOREIGN KEY'),
+        ]
+
+    },
+    {
+        tableName: 'payments',
+        columns: [
+            id,
+            createColumn('payment_amount', 'DECIMAL'),
+            createColumn('payee_id', 'INTEGER', 'FOREIGN KEY'),
+            createColumn('visit_id', 'INTEGER', 'FOREIGN KEY'),
+        ]
+
+    },
 
 ]
