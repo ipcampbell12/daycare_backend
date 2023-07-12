@@ -39,6 +39,18 @@ function updateRow(value, table, columnToUpdate, filterColumn, filterValue, resp
     executeQuery(query, response);
 }
 
+function selectRow(table, filterColumn, filterValue, response) {
+    const query = `SELECT * FROM ${table} WHERE ${filterColumn} = ${filterValue}`;
+
+    executeQuery(query, response);
+
+};
+
+function selectRows(table, response) {
+    const query = `SELECT * FROM ${table}`;
+
+    executeQuery(query, response);
+};
 
 module.exports = {
     createRow: createRow,
