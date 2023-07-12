@@ -18,15 +18,26 @@ const id = createColumn('id', 'INTEGER', 'PRIMARY KEY', 'NOT NULL', 'AUTO_INCREM
 
 const tables = [
     {
+        tableName: 'providers',
+        columns: [
+            id,
+            createColumn('first_name', 'VARCHAR(255)'),
+            createColumn('last_name', 'VARCHAR(255)'),
+            createColumn('username', 'VARCHAR(255'),
+            createColumn('password', 'VARCHAR(255')
+        ]
+    },
+    {
         tableName: 'children',
         columns: [
             id,
             createColumn('first_name', 'VARCHAR(255)'),
             createColumn('last_name', 'VARCHAR(255)'),
             createColumn('date_of_birth', 'DATE'),
+            createColumn('provider_id', 'INTEGER'),
         ],
         foreigners: [
-
+            ['provider_id', 'providers', 'id']
         ]
     },
     {
@@ -39,9 +50,11 @@ const tables = [
             createColumn('phone_number', 'CHAR(12)'),
             createColumn('spouse_id', 'INTEGER'),
             createColumn('child_id', 'INTEGER'),
+            createColumn('provider_id', 'INTEGER')
         ],
         foreigners: [
-            ['child_id', 'children', 'id']
+            ['child_id', 'children', 'id'],
+            ['provider_id', 'providers', 'id']
         ]
 
     },
@@ -50,7 +63,7 @@ const tables = [
         columns: [
             id,
             createColumn('child_id', 'INTEGER'),
-            createColumn('parent_id', 'INTEGER'),
+            createColumn('parent_id', 'INTEGER')
         ],
         foreigners: [
             ['child_id', 'children', 'id'],
@@ -65,9 +78,11 @@ const tables = [
             createColumn('visit_date', 'TIMESTAMP'),
             createColumn('visit_cost', 'DECIMAL'),
             createColumn('paid_for', 'BOOLEAN'),
+            createColumn('provider_id', 'INTEGER')
+
         ],
         foreigners: [
-
+            ['provider_id', 'providers', 'id']
         ]
 
     },
@@ -91,10 +106,12 @@ const tables = [
             createColumn('payment_amount', 'DECIMAL'),
             createColumn('payee_id', 'INTEGER'),
             createColumn('visit_id', 'INTEGER'),
+            createColumn('provider_id', 'INTEGER')
         ],
         foreigners: [
             ['payee_id', 'parents', 'id'],
-            ['visit_id', 'visits', 'id']
+            ['visit_id', 'visits', 'id'],
+            ['provider_id', 'providers', 'id']
         ]
 
     },
