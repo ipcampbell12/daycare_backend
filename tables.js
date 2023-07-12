@@ -23,8 +23,11 @@ const tables = [
             id,
             createColumn('first_name', 'VARCHAR(255)'),
             createColumn('last_name', 'VARCHAR(255)'),
-            createColumn('username', 'VARCHAR(255'),
-            createColumn('password', 'VARCHAR(255')
+            createColumn('username', 'VARCHAR(255)'),
+            createColumn('password', 'VARCHAR(255)')
+        ],
+        foreigners: [
+
         ]
     },
     {
