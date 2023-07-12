@@ -18,20 +18,15 @@ const id = createColumn('id', 'INTEGER', 'PRIMARY KEY', 'NOT NULL', 'AUTO_INCREM
 
 const tables = [
     {
-        tableName: 'users',
-        columns: [
-            id,
-            createColumn('uswername', 'VARCHAR(255)'),
-            createColumn('password', 'VARCHAR(255)')
-        ]
-    },
-    {
         tableName: 'children',
         columns: [
             id,
             createColumn('first_name', 'VARCHAR(255)'),
             createColumn('last_name', 'VARCHAR(255)'),
             createColumn('date_of_birth', 'DATE'),
+        ],
+        foreigners: [
+
         ]
     },
     {
@@ -42,8 +37,11 @@ const tables = [
             createColumn('last_name', 'VARCHAR(255)'),
             createColumn('email', 'VARCHAR(255)'),
             createColumn('phone_number', 'CHAR(12)'),
-            createColumn('spouse_id', 'INTEGER', 'FOREIGN KEY'),
-            createColumn('child_id', 'INTEGER', 'FOREIGN KEY'),
+            createColumn('spouse_id', 'INTEGER'),
+            createColumn('child_id', 'INTEGER'),
+        ],
+        foreigners: [
+            ['child_id', 'children', 'id']
         ]
 
     },
@@ -51,9 +49,12 @@ const tables = [
         tableName: 'children_parents',
         columns: [
             id,
-            createColumn('first_name', 'VARCHAR(255)'),
-            createColumn('child_id', 'INTEGER', 'FOREIGN KEY'),
-            createColumn('parents_id', 'INTEGER', 'FOREIGN KEY'),
+            createColumn('child_id', 'INTEGER'),
+            createColumn('parent_id', 'INTEGER'),
+        ],
+        foreigners: [
+            ['child_id', 'children', 'id'],
+            ['parent_id', 'parents', 'id']
         ]
 
     },
@@ -64,6 +65,9 @@ const tables = [
             createColumn('visit_date', 'TIMESTAMP'),
             createColumn('visit_cost', 'DECIMAL'),
             createColumn('paid_for', 'BOOLEAN'),
+        ],
+        foreigners: [
+
         ]
 
     },
@@ -71,8 +75,12 @@ const tables = [
         tableName: 'children_visits',
         columns: [
             id,
-            createColumn('visit_id', 'INTEGER', 'FOREIGN KEY'),
-            createColumn('child_id', 'INTEGER', 'FOREIGN KEY'),
+            createColumn('visit_id', 'INTEGER'),
+            createColumn('child_id', 'INTEGER'),
+        ],
+        foreigners: [
+            ['child_id', 'children', 'id'],
+            ['visit_id', 'visits', 'id']
         ]
 
     },
@@ -81,13 +89,17 @@ const tables = [
         columns: [
             id,
             createColumn('payment_amount', 'DECIMAL'),
-            createColumn('payee_id', 'INTEGER', 'FOREIGN KEY'),
-            createColumn('visit_id', 'INTEGER', 'FOREIGN KEY'),
+            createColumn('payee_id', 'INTEGER'),
+            createColumn('visit_id', 'INTEGER'),
+        ],
+        foreigners: [
+            ['payee_id', 'parents', 'id'],
+            ['visit_id', 'visits', 'id']
         ]
 
     },
 
-]
+];
 
 
 module.exports = {

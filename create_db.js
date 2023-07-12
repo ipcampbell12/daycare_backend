@@ -8,37 +8,16 @@ const connection = mysql.createConnection({
     database: 'daycare_database'
 });
 
-const createDatabase = (dbName) => {
-    const query = `CREATE DATABASE ${dbName}`
-
-    connection.query(query, function (err, result, field) {
-        if (err) throw err;
-        console.log(`${dbName} created!`)
-    });
-
-}
-
-const selectDatabase = (dbName) => {
-    const query = `USE ${dbName}`
-
-    connection.query(query, function (err, result, field) {
-        if (err) throw err;
-        console.log(`Now using ${dbName} as database`)
-    })
-}
-
-const createTable = (table, ...foreignArr) => {
-    connection.query(createTableQuery(table, ...foreignArr), function (err, result, field) {
+const createTable = (table) => {
+    connection.query(createTableQuery(table), function (err, result, field) {
         if (err) throw err;
         console.log(`${table.tableName} table created!`)
     });
 
-}
+};
 
 
-//can't use arguments keyword in arrow functions
-
-function createTableQuery(table, ...foreignArr) {
+function createTableQuery(table) {
 
     const tableName = `CREATE TABLE ${table.tableName} (\n`
     const columns = table.columns.map(column => {
@@ -47,13 +26,15 @@ function createTableQuery(table, ...foreignArr) {
 
     const query = tableName.concat(columns)
 
-    if (foreignArr) {
+    if (table.foreigners.length !== 0) {
+
+        //remove closing parentheses and add a comma
         const trimmed = query.slice(0, query.length - 1).concat(',')
 
         let strArr = [];
 
-        for (const arg of foreignArr) {
-            strArr.push(`FOREIGN KEY (${arg[0]}) REFERENCES ${arg[1]} \n `)
+        for (const arg of table.foreigners) {
+            strArr.push(`FOREIGN KEY (${arg[0]}) REFERENCES ${arg[1]}(${arg[2]}) \n `)
         };
 
         const final = trimmed.concat(strArr.join(',')).concat(')');
@@ -63,18 +44,10 @@ function createTableQuery(table, ...foreignArr) {
 
 
     return query
-}
-
-console.log(createTableQuery(parents, ['child_id', 'children']));
-// const createAllTables = () => tables.map(
-//     table => createTableQuery(table)
-// );
+};
 
 
-
-
-
-//selectDatabase('daycare_database');
+tables.map(table => createTable(table))
 
 connection.end()
 
