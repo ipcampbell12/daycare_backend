@@ -34,7 +34,7 @@ function deleteRow(value, table, column, response) {
 
 function updateRow(value, table, columnToUpdate, filterColumn, filterValue, response) {
 
-    const query = `UPDATE ${table} SET ${columnToUpdate} = ${value} WHERE  ${filterColumn} =${filterValue}`;
+    const query = `UPDATE ${table} SET ${columnToUpdate} = ${value} WHERE ${filterColumn} =${filterValue}`;
 
     executeQuery(query, response);
 }
@@ -56,5 +56,7 @@ module.exports = {
     createRow: createRow,
     createMultipleRows: createMultipleRows,
     deleteRow: deleteRow,
-    updateRow: updateRow
+    updateRow: updateRow,
+    selectRow: selectRow,
+    selectRows: selectRows
 };
