@@ -33,9 +33,11 @@ function deleteRow(value, table, column, response) {
     executeQuery(query, response);
 };
 
-function updateRow(value, table, columnToUpdate, filterColumn, filterValue, response) {
+function updateRow(table, updateArr, filterValue, response) {
+    const updates = updateArr.map(update => `${update[0]}=${update[1]}`).join(',');
+    const query = `UPDATE ${table} SET ${updates} WHERE ${filterColumn} =${filterValue}`;
 
-    const query = `UPDATE ${table} SET ${columnToUpdate} = ${value} WHERE ${filterColumn} =${filterValue}`;
+
 
     executeQuery(query, response);
 }
