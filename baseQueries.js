@@ -12,10 +12,11 @@ const executeQuery = (query, response, values = null) => {
 };
 
 
-function createRow(value, response, table, columns) {
-    const query = `INSERT INTO ${table} (${columns.joins(',')}) VALUES ?`;
+function createRow(reqObj, response, table, columns) {
+    const values = Object.values(reqObj)
+    const query = `INSERT INTO ${table} (${columns.join(',')}) VALUES (?)`;
 
-    executeQuery(query, response, [value]);
+    executeQuery(query, response, values);
 
 };
 

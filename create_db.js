@@ -47,9 +47,9 @@ function createTableQuery(table) {
 };
 
 
-tables.map(table => createTable(table))
+// tables.map(table => createTable(table))
 
-connection.end()
+// connection.end()
 
 module.exports = {
     connection: connection

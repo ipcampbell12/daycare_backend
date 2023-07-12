@@ -1,9 +1,10 @@
 const express = require('express');
-const router = express.Router();
+const providerRouter = express.Router();
 const queries = require('../baseQueries');
 
+const table = 'providers';
 
-router.post(('/'), (req, res) => {
+providerRouter.post(('/'), (req, res) => {
 
     const provider = {
         first: req.body.first_name,
@@ -20,10 +21,19 @@ router.post(('/'), (req, res) => {
     ]
 
     try {
-        queries.createRow(provider, res, 'providers', columns)
+        queries.createRow(provider, res, table, columns)
     } catch (err) {
         console.log(err.message)
     };
 });
 
-module.exports = router;
+
+providerRouter.get(('/'), (req, res) => {
+    try {
+        queries.selectRows(table, res)
+    } catch (err) {
+        console.log(err.message)
+    }
+});
+
+module.exports = providerRouter;
