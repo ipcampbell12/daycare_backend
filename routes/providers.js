@@ -36,4 +36,12 @@ providerRouter.get(('/'), (req, res) => {
     }
 });
 
+providerRouter.get(('/:id'), (req, res) => {
+    try {
+        queries.selectRow(table, 'id', req.params.id, res);
+    } catch (err) {
+        console.log(err.message)
+    }
+});
+
 module.exports = providerRouter;
