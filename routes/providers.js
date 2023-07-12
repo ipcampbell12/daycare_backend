@@ -1,6 +1,7 @@
 const express = require('express');
 const providerRouter = express.Router();
 const queries = require('../baseQueries');
+const { createArr } = require('../utitlies')
 
 const table = 'providers';
 
@@ -61,12 +62,10 @@ providerRouter.put(('/:id'), (req, res) => {
         password: req.body.password
     }
 
-    const updateArr = [
-
-    ];
+    const updateArr = createArr(columns, Object.values(provider))
 
     try {
-        queries.updateRow(table, 'id', req.params.id, res);
+        queries.updateRow(table, updateArr, 'id', req.params.id, res);
     } catch (err) {
         console.log(err.message)
     }
