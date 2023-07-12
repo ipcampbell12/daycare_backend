@@ -1,8 +1,7 @@
 
 
-const createColumn = (fieldName, type, nullability = 'NOT NULL', key = null, defaultVal = null, extra = null) => {
-    const columnVals =
-    {
+const createColumn = (fieldName, type, key = null, nullability = 'NOT NULL', defaultVal = null, extra = null,) => {
+    let columnVals = {
         field: fieldName,
         type: type,
         null: nullability,
@@ -10,10 +9,11 @@ const createColumn = (fieldName, type, nullability = 'NOT NULL', key = null, def
         default: defaultVal,
         extra: extra
     };
-    return columnVals;
+
+    return columnVals
 };
 
-const id = createColumn('id', 'INTEGER', 'NOT NULL', 'PRIMARY KEY', null, 'AUTO_INCREMENT');
+const id = createColumn('id', 'INTEGER', 'PRIMARY KEY', 'NOT NULL', 'AUTO_INCREMENT');
 
 
 const tables = [
@@ -88,3 +88,9 @@ const tables = [
     },
 
 ]
+
+
+module.exports = {
+    createColumn: createColumn,
+    tables: tables
+}
