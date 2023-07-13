@@ -58,7 +58,7 @@ childrenRouter.get(('/:provider_id/children'), (req, res) => {
 
 
     try {
-        queries.selectJoin(req.params.provider_id, null, res, params)
+        queries.selectJoin(req.params.provider_id, null, 'single', res, params)
     } catch (err) {
         console.log(err.message)
     }
@@ -69,7 +69,7 @@ childrenRouter.get(('/:provider_id/children/:id'), (req, res) => {
 
 
     try {
-        queries.selectJoin(req.params.provider_id, req.params.id, res, params);
+        queries.selectJoin(req.params.provider_id, req.params.id, 'single', res, params);
     } catch (err) {
         console.log(err.message)
     }
