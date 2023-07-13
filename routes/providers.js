@@ -62,7 +62,7 @@ providerRouter.put(('/:id'), (req, res) => {
         password: req.body.password
     }
 
-    const updateArr = createArr(columns, Object.values(provider))
+    const updateArr = createArr(providersColumns, Object.values(provider))
 
     try {
         queries.updateRow(providerTable, updateArr, 'id', req.params.id, res);

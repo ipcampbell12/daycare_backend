@@ -7,7 +7,7 @@ const baseQueries = require('../baseQueries');
 
 const childrenTable = 'children';
 
-const columns = [
+const childrenColumns = [
     'first_name',
     'last_name',
     'date_of_birth',
@@ -37,9 +37,9 @@ childrenRouter.post(('/:provider_id/children'), (req, res) => {
 
 
 childrenRouter.get(('/:provider_id/children'), (req, res) => {
-    const id1 = childrenTable.concat('.', columns[3]);
+    const id1 = childrenTable.concat('.', childrenColumns[3]);
     const id2 = providerTable.concat('.', 'id');
-    const c1 = `children.${columns[0]}, children.${columns[1]}, children.${columns[2]},`;
+    const c1 = `children.${childrenColumns[0]}, children.${childrenColumns[1]}, children.${childrenColumns[2]},`;
     const c2 = 'providers.id AS provider_id';
 
     try {
@@ -50,10 +50,10 @@ childrenRouter.get(('/:provider_id/children'), (req, res) => {
 });
 
 childrenRouter.get(('/:provider_id/children/:id'), (req, res) => {
-    const id1 = childrenTable.concat('.', columns[3]);
+    const id1 = childrenTable.concat('.', childrenColumns[3]);
     const id2 = providerTable.concat('.', 'id');
 
-    const c1 = `children.${columns[0]}, children.${columns[1]}, children.${columns[2]},`;
+    const c1 = `children.${childrenColumns[0]}, children.${childrenColumns[1]}, children.${childrenColumns[2]},`;
     const c2 = `providers.id AS provider_id`
 
     try {
@@ -71,6 +71,24 @@ childrenRouter.delete(('/:provider_id/children/:id'), (req, res) => {
     } catch (err) {
         console.log(err.message)
     };
+});
+
+childrenRouter.put(('/:provider_id/children/:id'), (req, res) => {
+
+    const child = {
+        first: req.body.first_name,
+        last: req.body.last_name,
+        birthdate: req.body.birthdate,
+        provider_id: req.params.provider_id
+    }
+
+    const updateArr = createArr(childrenColumns, Object.values(child));
+
+    try {
+        baseQueries.updateRow(childrenTable, updateArr, 'id', req.params.id, res)
+    } catch (err) {
+        console.log(err.message)
+    }
 });
 
 
