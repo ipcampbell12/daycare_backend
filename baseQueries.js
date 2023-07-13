@@ -50,19 +50,41 @@ function selectRow(table, filterColumn, filterValue, response) {
 
 };
 
-function selectJoin(table1, table2, columns1, columns2, id1, id2, provider_id, response, filterVal = null) {
+// function selectJoin(table1, table2, columns, id1, id2, provider_id, response, filterVal = null) {
+
+//     let query = `
+//     SELECT ${columns} FROM ${table1}
+//     JOIN ${table2} ON ${id1} = ${id2}
+//     WHERE ${id2} = ${provider_id}
+//     `
+
+//     if (filterVal) {
+//         console.log("This clause is run")
+//         let filter = `AND ${table1}.id = ${filterVal}`
+//         let newQuery = query.concat(filter)
+
+//         executeQuery(newQuery, response);
+
+//         return;
+//     }
+
+//     console.log(query)
+//     executeQuery(query, response)
+// };
+function selectJoin(provider_id, id, response, ...params) {
+
+    const args = params[0];
 
     let query = `
-    SELECT ${columns1.concat(columns2)} FROM ${table1}
-    JOIN ${table2} ON ${id1} = ${id2}
-    WHERE ${id2} = ${provider_id}
-    `
+    SELECT ${args['columns'].join(',')} FROM ${args['tables'][0]}
+    JOIN ${args['tables'][1]} ON ${args['ids'][0]} = ${args['ids'][1]}
+    WHERE ${args['ids'][1]} = ${provider_id}
+    `;
 
-    if (filterVal) {
-        let filter = `AND ${table1}.id = ${filterVal}`
+    if (id) {
+        let filter = `AND ${args['tables'][0]}.id = ${id}`
         let newQuery = query.concat(filter)
 
-        console.log(newQuery);
         executeQuery(newQuery, response);
 
         return;
@@ -71,6 +93,9 @@ function selectJoin(table1, table2, columns1, columns2, id1, id2, provider_id, r
     console.log(query)
     executeQuery(query, response)
 };
+
+
+
 
 function selectRows(table, response) {
     const query = `SELECT * FROM ${table}`;
