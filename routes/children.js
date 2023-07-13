@@ -45,7 +45,7 @@ childrenRouter.post(('/:provider_id/children'), (req, res) => {
     };
 
     try {
-        queries.createRow(child, res, childrenTable, columns)
+        queries.createRow(child, res, childrenTable, childrenColumns)
 
 
     } catch (err) {
@@ -104,4 +104,8 @@ childrenRouter.put(('/:provider_id/children/:id'), (req, res) => {
 });
 
 
-module.exports = childrenRouter;
+module.exports = {
+    childrenRouter: childrenRouter,
+    childrenTable: childrenTable,
+    childrenColumns: childrenColumns
+}

@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(morgan('tiny'))
 
 app.use('/api/providers', providers.providerRouter)
-app.use('/api/providers', children)
+app.use('/api/providers', children.childrenRouter)
 app.use('/api/providers', visits.visitsRouter)
 
 const port = process.env.PORT || 3003;
