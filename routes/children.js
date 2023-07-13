@@ -14,6 +14,24 @@ const childrenColumns = [
     'provider_id'
 ];
 
+const params = {
+    tables: [
+        childrenTable,
+        providerTable
+    ],
+    columns: [
+        childrenTable.concat('.', childrenColumns[0]),
+        childrenTable.concat('.', childrenColumns[1]),
+        childrenTable.concat('.', childrenColumns[2]),
+        'providers.id AS provider_id'
+    ],
+    ids: [
+        childrenTable.concat('.', childrenColumns[3]),
+        providerTable.concat('.', 'id')
+    ]
+
+};
+
 childrenRouter.post(('/:provider_id/children'), (req, res) => {
 
     console.log(req.params.provider_id);
@@ -36,50 +54,19 @@ childrenRouter.post(('/:provider_id/children'), (req, res) => {
 });
 
 
-// childrenRouter.get(('/:provider_id/children'), (req, res) => {
-//     const id1 = childrenTable.concat('.', childrenColumns[3]);
-//     const id2 = providerTable.concat('.', 'id');
-//     const columns = `children.${childrenColumns[0]}, children.${childrenColumns[1]}, children.${childrenColumns[2]},providers.id AS provider_id`;
-
-//     try {
-//         queries.selectJoin(childrenTable, providerTable, columns, id1, id2, req.params.provider_id, res)
-//     } catch (err) {
-//         console.log(err.message)
-//     }
-// });
-
-// childrenRouter.get(('/:provider_id/children/:id'), (req, res) => {
-//     const id1 = childrenTable.concat('.', childrenColumns[3]);
-//     const id2 = providerTable.concat('.', 'id');
-
-//     const columns = `children.${childrenColumns[0]}, children.${childrenColumns[1]}, children.${childrenColumns[2]},providers.id AS provider_id`;
+childrenRouter.get(('/:provider_id/children'), (req, res) => {
 
 
-//     try {
-//         queries.selectJoin(childrenTable, providerTable, columns, id1, id2, req.params.provider_id, res, req.params.id);
-//     } catch (err) {
-//         console.log(err.message)
-//     }
-// });
+    try {
+        queries.selectJoin(req.params.provider_id, null, res, params)
+    } catch (err) {
+        console.log(err.message)
+    }
+});
+
+
 childrenRouter.get(('/:provider_id/children/:id'), (req, res) => {
 
-    const params = {
-        tables: [
-            childrenTable,
-            providerTable
-        ],
-        columns: [
-            childrenTable.concat('.', childrenColumns[0]),
-            childrenTable.concat('.', childrenColumns[1]),
-            childrenTable.concat('.', childrenColumns[2]),
-            'providers.id AS provider_id'
-        ],
-        ids: [
-            childrenTable.concat('.', childrenColumns[3]),
-            providerTable.concat('.', 'id')
-        ]
-
-    };
 
     try {
         queries.selectJoin(req.params.provider_id, req.params.id, res, params);
