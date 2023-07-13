@@ -52,11 +52,9 @@ const tables = [
             createColumn('email', 'VARCHAR(255)'),
             createColumn('phone_number', 'CHAR(12)'),
             createColumn('spouse_id', 'INTEGER'),
-            createColumn('child_id', 'INTEGER'),
             createColumn('provider_id', 'INTEGER')
         ],
         foreigners: [
-            ['child_id', 'children', 'id'],
             ['provider_id', 'providers', 'id']
         ]
 

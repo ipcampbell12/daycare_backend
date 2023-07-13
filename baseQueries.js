@@ -34,7 +34,7 @@ function deleteRow(value, table, column, response) {
 };
 
 function updateRow(table, updateArr, filterColumn, filterValue, response) {
-    const updates = updateArr.map(update => `${update[0]}=${update[1]}`).join(',');
+    const updates = updateArr.map(update => `${update[0]}='${update[1]}'`).join(',');
     const query = `UPDATE ${table} SET ${updates} WHERE ${filterColumn} =${filterValue}`;
 
 
@@ -43,10 +43,20 @@ function updateRow(table, updateArr, filterColumn, filterValue, response) {
 }
 
 function selectRow(table, filterColumn, filterValue, response) {
-    const query = `SELECT * FROM ${table} WHERE ${filterColumn} = ${filterValue}`;
+    let query = `SELECT * FROM ${table} WHERE ${filterColumn} = ${filterValue}`;
 
     executeQuery(query, response);
 
+};
+
+function selectJoin(table1, table2, id1, id2, provider_id, response) {
+    let query = `
+    SELECT * FROM ${table1}
+    JOIN ${table2} ON ${id1} = ${id2}
+    WHERE ${id2} = ${provider_id}
+    `
+    console.log(query)
+    executeQuery(query, response)
 };
 
 function selectRows(table, response) {
@@ -61,5 +71,6 @@ module.exports = {
     deleteRow: deleteRow,
     updateRow: updateRow,
     selectRow: selectRow,
-    selectRows: selectRows
+    selectRows: selectRows,
+    selectJoin: selectJoin
 };

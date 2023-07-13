@@ -3,7 +3,7 @@ const providerRouter = express.Router();
 const queries = require('../baseQueries');
 const { createArr } = require('../utitlies')
 
-const table = 'providers';
+const providerTable = 'providers';
 
 const columns = [
     'first_name',
@@ -71,4 +71,8 @@ providerRouter.put(('/:id'), (req, res) => {
     }
 });
 
-module.exports = providerRouter;
+module.exports = {
+    providerRouter: providerRouter,
+    providerTable: providerTable
+
+}
