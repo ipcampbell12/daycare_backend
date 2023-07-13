@@ -2,7 +2,8 @@ const express = require('express');
 const childrenRouter = express.Router();
 const queries = require('../baseQueries');
 const { createArr } = require('../utitlies')
-const { providerTable, providersColumns } = require('./providers')
+const { providerTable, providersColumns } = require('./providers');
+const baseQueries = require('../baseQueries');
 
 const childrenTable = 'children';
 
@@ -60,6 +61,16 @@ childrenRouter.get(('/:provider_id/children/:id'), (req, res) => {
     } catch (err) {
         console.log(err.message)
     }
+});
+
+
+childrenRouter.delete(('/:provider_id/children/:id'), (req, res) => {
+    console.log('This route has run')
+    try {
+        baseQueries.deleteRow(req.params.id, childrenTable, 'id', res)
+    } catch (err) {
+        console.log(err.message)
+    };
 });
 
 

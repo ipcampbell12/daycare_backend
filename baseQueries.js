@@ -30,6 +30,7 @@ function createMultipleRows(values, response, table, columns) {
 function deleteRow(value, table, column, response) {
     const query = `DELETE FROM ${table} WHERE ${column}=${value}`;
 
+    console.log(query)
     executeQuery(query, response);
 };
 
