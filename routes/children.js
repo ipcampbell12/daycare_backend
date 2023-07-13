@@ -46,5 +46,16 @@ childrenRouter.get(('/:provider_id/children'), (req, res) => {
     }
 });
 
+childrenRouter.get(('/:provider_id/children/:id'), (req, res) => {
+    const id1 = childrenTable.concat('.', columns[3]);
+    const id2 = providerTable.concat('.', 'id')
+
+    try {
+        queries.selectJoin(childrenTable, providerTable, id1, id2, req.params.provider_id, res, req.params.id);
+    } catch (err) {
+        console.log(err.message)
+    }
+});
+
 
 module.exports = childrenRouter;

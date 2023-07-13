@@ -49,12 +49,23 @@ function selectRow(table, filterColumn, filterValue, response) {
 
 };
 
-function selectJoin(table1, table2, id1, id2, provider_id, response) {
+function selectJoin(table1, table2, id1, id2, provider_id, response, filterVal = null) {
     let query = `
     SELECT * FROM ${table1}
     JOIN ${table2} ON ${id1} = ${id2}
     WHERE ${id2} = ${provider_id}
     `
+
+    if (filterVal) {
+        let filter = `AND ${table1}.id = ${filterVal}`
+        let newQuery = query.concat(filter)
+
+        console.log(newQuery);
+        executeQuery(newQuery, response);
+
+        return;
+    }
+
     console.log(query)
     executeQuery(query, response)
 };
