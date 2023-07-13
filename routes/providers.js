@@ -5,7 +5,7 @@ const { createArr } = require('../utitlies')
 
 const providerTable = 'providers';
 
-const columns = [
+const providersColumns = [
     'first_name',
     'last_name',
     'username',
@@ -22,7 +22,7 @@ providerRouter.post(('/'), (req, res) => {
     };
 
     try {
-        queries.createRow(provider, res, table, columns)
+        queries.createRow(provider, res, providerTable, providersColumns)
     } catch (err) {
         console.log(err.message)
     };
@@ -31,7 +31,7 @@ providerRouter.post(('/'), (req, res) => {
 
 providerRouter.get(('/'), (req, res) => {
     try {
-        queries.selectRows(table, res)
+        queries.selectRows(providerTable, res)
     } catch (err) {
         console.log(err.message)
     }
@@ -39,7 +39,7 @@ providerRouter.get(('/'), (req, res) => {
 
 providerRouter.get(('/:id'), (req, res) => {
     try {
-        queries.selectRow(table, 'id', req.params.id, res);
+        queries.selectRow(providerTable, 'id', req.params.id, res);
     } catch (err) {
         console.log(err.message)
     }
@@ -47,7 +47,7 @@ providerRouter.get(('/:id'), (req, res) => {
 
 providerRouter.delete(('/:id'), (req, res) => {
     try {
-        queries.deleteRow(req.params.id, table, 'id', res);
+        queries.deleteRow(req.params.id, providerTable, 'id', res);
     } catch (err) {
         console.log(err.message)
     }
@@ -65,7 +65,7 @@ providerRouter.put(('/:id'), (req, res) => {
     const updateArr = createArr(columns, Object.values(provider))
 
     try {
-        queries.updateRow(table, updateArr, 'id', req.params.id, res);
+        queries.updateRow(providerTable, updateArr, 'id', req.params.id, res);
     } catch (err) {
         console.log(err.message)
     }
@@ -73,6 +73,7 @@ providerRouter.put(('/:id'), (req, res) => {
 
 module.exports = {
     providerRouter: providerRouter,
-    providerTable: providerTable
+    providerTable: providerTable,
+    providersColumns: providersColumns
 
 }

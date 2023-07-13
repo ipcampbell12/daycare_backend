@@ -2,7 +2,7 @@ const express = require('express');
 const childrenRouter = express.Router();
 const queries = require('../baseQueries');
 const { createArr } = require('../utitlies')
-const { providerTable } = require('./providers')
+const { providerTable, providersColumns } = require('./providers')
 
 const childrenTable = 'children';
 
@@ -37,10 +37,12 @@ childrenRouter.post(('/:provider_id/children'), (req, res) => {
 
 childrenRouter.get(('/:provider_id/children'), (req, res) => {
     const id1 = childrenTable.concat('.', columns[3]);
-    const id2 = providerTable.concat('.', 'id')
+    const id2 = providerTable.concat('.', 'id');
+    const c1 = `children.${columns[0]}, children.${columns[1]}, children.${columns[2]},`;
+    const c2 = 'providers.id AS provider_id';
 
     try {
-        queries.selectJoin(childrenTable, providerTable, id1, id2, req.params.provider_id, res)
+        queries.selectJoin(childrenTable, providerTable, c1, c2, id1, id2, req.params.provider_id, res)
     } catch (err) {
         console.log(err.message)
     }
@@ -48,10 +50,13 @@ childrenRouter.get(('/:provider_id/children'), (req, res) => {
 
 childrenRouter.get(('/:provider_id/children/:id'), (req, res) => {
     const id1 = childrenTable.concat('.', columns[3]);
-    const id2 = providerTable.concat('.', 'id')
+    const id2 = providerTable.concat('.', 'id');
+
+    const c1 = `children.${columns[0]}, children.${columns[1]}, children.${columns[2]},`;
+    const c2 = `providers.id AS provider_id`
 
     try {
-        queries.selectJoin(childrenTable, providerTable, id1, id2, req.params.provider_id, res, req.params.id);
+        queries.selectJoin(childrenTable, providerTable, c1, c2, id1, id2, req.params.provider_id, res, req.params.id);
     } catch (err) {
         console.log(err.message)
     }

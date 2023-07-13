@@ -49,9 +49,10 @@ function selectRow(table, filterColumn, filterValue, response) {
 
 };
 
-function selectJoin(table1, table2, id1, id2, provider_id, response, filterVal = null) {
+function selectJoin(table1, table2, columns1, columns2, id1, id2, provider_id, response, filterVal = null) {
+
     let query = `
-    SELECT * FROM ${table1}
+    SELECT ${columns1.concat(columns2)} FROM ${table1}
     JOIN ${table2} ON ${id1} = ${id2}
     WHERE ${id2} = ${provider_id}
     `
