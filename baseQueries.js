@@ -71,17 +71,18 @@ function selectJoin(provider_id, id, type, response, ...params) {
         `;
     };
 
-    if (id) {
-        let filter = `AND ${args['tables'][0]}.id = ${id} `
-        let newQuery = query.concat(filter)
+    response.send(query)
+    // if (id) {
+    //     let filter = `AND ${args['tables'][0]}.id = ${id} `
+    //     let newQuery = query.concat(filter)
 
-        executeQuery(newQuery, response);
+    //     executeQuery(newQuery, response);
 
-        return;
-    }
+    //     return;
+    // }
 
-    console.log(query)
-    executeQuery(query, response)
+    // console.log(query)
+    // executeQuery(query, response)
 };
 
 

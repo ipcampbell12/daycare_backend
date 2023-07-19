@@ -15,6 +15,27 @@ const visitsColumns = [
     'provider_id'
 ];
 
+const params1 = {
+    tables: [
+        visitsTable,
+        providers.providerTable,
+
+    ],
+    columns: [
+        visitsTable.concat('.', visitsColumns[0]),
+        visitsTable.concat('.', visitsColumns[1]),
+        visitsTable.concat('.', visitsColumns[2]),
+        visitsTable.concat('.', visitsColumns[3]),
+        visitsTable.concat('.', visitsColumns[4]),
+        'visits.id'
+    ],
+    ids: [
+        visitsTable.concat('.', visitsTable[3]),
+        providers.providerTable.concat('.', 'id')
+    ]
+
+};
+
 visitsRouter.post(('/:provider_id/children/:child_id/visits'), (req, res) => {
 
     const visit = {
@@ -32,6 +53,21 @@ visitsRouter.post(('/:provider_id/children/:child_id/visits'), (req, res) => {
     };
 });
 
+visitsRouter.get(('/:provider_id/visits'), (req, res) => {
+
+
+    try {
+        queries.selectJoin(req.params.provider_id, null, 'single', res, params1)
+    } catch (err) {
+        console.log(err.message)
+    }
+});
+
+
+
+
+
+//console.log(params1)
 module.exports = {
     visitsRouter: visitsRouter
 }
