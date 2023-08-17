@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
 router.get('/:firstName', async (req, res) => {
     try {
         const provider = await Providers.findAll({
-            where: { firstName: req.body.firstName }
+            where: { firstName: req.params.firstName }
         });
 
         res.send(provider);
@@ -53,5 +53,33 @@ router.post('/', async (req, res) => {
 
 });
 
+router.put("/:id", async (req, res) => {
+    try {
+        await Providers.update({
+            firstName: req.body.firstName,
+            lastName: req.body.firstName,
+            username: req.body.username,
+            password: req.body.password
+        }, {
+            where: { id: req.params.id }
+        });
+
+        res.send(`Provider with id ${req.params.id} has been updated`);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        await Providers.destroy({
+            where: { id: req.params.id }
+        });
+
+        res.send(`Provider with id ${req.params.id} has been deleted`);
+    } catch (err) {
+        console.log(err);
+    }
+})
 
 module.exports = router;
