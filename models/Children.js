@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 
-    const Providers = sequelize.define("Providers", {
+    const Children = sequelize.define("Children", {
         firstName: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -16,16 +16,16 @@ module.exports = (sequelize, DataTypes) => {
             }
 
         },
-        username: {
-            type: DataTypes.STRING,
+        birthDate: {
+            type: DataTypes.DATE,
             allowNull: false,
             validate: {
                 notEmpty: true
             }
 
         },
-        password: {
-            type: DataTypes.STRING,
+        providerId: {
+            type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
                 notEmpty: true
@@ -34,6 +34,6 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
-    return Providers;
+    return Children;
 
 }
