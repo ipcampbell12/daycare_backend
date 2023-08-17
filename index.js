@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const db = require("./models");
 
 
 const app = express()
@@ -11,7 +12,10 @@ app.use(morgan('tiny'))
 
 const port = process.env.PORT || 3003;
 
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`)
-})
+db.sequelize.sync().then(() => {
+    app.listen(port, () => {
+        console.log(`Listening on port ${port}`)
+    });
+});
+
 
