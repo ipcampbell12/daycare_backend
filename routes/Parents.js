@@ -1,73 +1,42 @@
 const express = require('express');
 const router = express.Router();
-const { Children } = require('../models');
+const { Parents } = require('../models');
 
-//get chidlren by provider
-router.get('/:providerId', async (req, res) => {
-    try {
-        const providerId = req.params.providerId;
-        const children = await Children.findAll({
-            where: {
-                providerId: providerId
-            }
-        });
-        res.json(children);
-    } catch (err) {
-        console.log(err);
-    }
-
-});
-
-//get individual child by id
+//get individual parents
 router.get('/:id', async (req, res) => {
     try {
-        const child = await Children.findByPk(req.params.id);
-        res.status(200).json(child);
+        const parent = await Parents.findByPk(req.params.id);
+        res.status(200).json(parent);
     } catch (err) {
         console.log(err);
     }
 });
 
-
-//get child by first name
-router.get('/:firstName', async (req, res) => {
+//get all parents
+router.get('/', async (req, res) => {
     try {
-        const child = await Children.findAll({
-            where: { firstName: req.params.firstName }
-        });
-
-        res.send(child);
+        const parentList = await Parents.findAll()
+        res.status(200).json(parentList);
     } catch (err) {
         console.log(err);
     }
 });
 
-
-//create child
+//create parent
 router.post('/', async (req, res) => {
 
     try {
-        const child = req.body;
+        const parent = req.body;
 
-        await Children.create(child);
+        await Parents.create(parent);
 
-        res.send(child);
+        res.send(parent);
     } catch (err) {
         console.log(err);
     }
 
 });
 
-//add child to parent 
-router.post('/parents/:parentId/children/:childId', async (req, res) => {
-    try {
-
-    } catch (err) {
-
-    }
-});
-
-//update child
 router.put("/:id", async (req, res) => {
     try {
 
@@ -87,7 +56,6 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-//delete child
 router.delete('/:id', async (req, res) => {
     try {
         await Children.destroy({
