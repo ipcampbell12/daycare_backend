@@ -3,10 +3,15 @@ const morgan = require('morgan');
 const db = require("./models");
 
 
+
 const app = express()
 
 app.use(express.json());
 app.use(morgan('tiny'))
+
+//routers
+const providerRouter = require("./routes/Providers");
+app.use("/providers", providerRouter);
 
 
 

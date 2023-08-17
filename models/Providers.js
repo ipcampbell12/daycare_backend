@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Providers.associate = (models) => {
         Providers.hasMany(models.Children, {
-            onDelete: "casacde"
+            onDelete: "cascade"
         });
     };
 
