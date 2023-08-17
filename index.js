@@ -13,6 +13,9 @@ app.use(morgan('tiny'))
 const providerRouter = require('./routes/Providers');
 app.use("/providers", providerRouter);
 
+const childrenRouter = require('./routes/Children');
+app.use("/children", childrenRouter);
+
 
 
 const port = process.env.PORT || 3003;
