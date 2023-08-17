@@ -23,14 +23,6 @@ module.exports = (sequelize, DataTypes) => {
                 notEmpty: true
             }
 
-        },
-        providerId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
-                notEmpty: true
-            }
-
         }
     });
 
