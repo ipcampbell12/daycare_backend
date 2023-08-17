@@ -2,51 +2,56 @@ const express = require('express');
 const router = express.Router();
 const { Children } = require('../models');
 
-//get all providers
-router.get('/', async (req, res) => {
+//get chidlren by provider
+router.get('/:providerId', async (req, res) => {
     try {
-        const providerList = await Children.findAll();
-        res.send(providerList);
+        const providerId = req.params.providerId;
+        const children = await Children.findAll({
+            where: {
+                providerId: providerId
+            }
+        });
+        res.json(children);
     } catch (err) {
         console.log(err);
     }
 
 });
 
-//get provider by id
+
 router.get('/:id', async (req, res) => {
     try {
-        const provider = await Children.findByPk(req.params.id);
-        res.status(200).json(provider);
+        const child = await Children.findByPk(req.params.id);
+        res.status(200).json(child);
     } catch (err) {
         console.log(err);
     }
 });
 
 
-//get provider by firstName
+
 router.get('/:firstName', async (req, res) => {
     try {
-        const provider = await Children.findAll({
+        const child = await Children.findAll({
             where: { firstName: req.params.firstName }
         });
 
-        res.send(provider);
+        res.send(child);
     } catch (err) {
         console.log(err);
     }
 });
 
 
-//create provider
+
 router.post('/', async (req, res) => {
 
     try {
-        const provider = req.body;
+        const child = req.body;
 
-        await Children.create(provider);
+        await Children.create(child);
 
-        res.send(provider);
+        res.send(child);
     } catch (err) {
         console.log(err);
     }
@@ -55,16 +60,18 @@ router.post('/', async (req, res) => {
 
 router.put("/:id", async (req, res) => {
     try {
-        await Children.update({
+
+        const child = await Children.update({
             firstName: req.body.firstName,
-            lastName: req.body.firstName,
-            username: req.body.username,
-            password: req.body.password
+            lastName: req.body.lastName,
+            birthDate: req.body.birthDate,
+            ProviderId: req.body.ProviderId
         }, {
             where: { id: req.params.id }
         });
 
-        res.send(`Provider with id ${req.params.id} has been updated`);
+        res.json(child);
+
     } catch (err) {
         console.log(err);
     }
@@ -76,7 +83,7 @@ router.delete('/:id', async (req, res) => {
             where: { id: req.params.id }
         });
 
-        res.send(`Provider with id ${req.params.id} has been deleted`);
+        res.send(`Child with id ${req.params.id} has been deleted`);
     } catch (err) {
         console.log(err);
     }
