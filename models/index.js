@@ -40,4 +40,20 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+db.Parents = require('./Parents')(sequelize, Sequelize);
+db.Children = require('./Children')(sequelize, Sequelize);
+
+db.Parents.belongsToMany(db.Children, {
+  through: "Parents_Children",
+  as: "Parents",
+  foreignKey: "ChildId"
+});
+
+db.Children.belongsToMany(db.Parents, {
+  through: "Parents_Children",
+  as: "Children",
+  foreignKey: "ParentId"
+});
+
+
 module.exports = db;
