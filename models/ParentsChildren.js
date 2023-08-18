@@ -3,8 +3,5 @@ module.exports = (sequelize, DataTypes) => {
 
     });
 
-    Parents.belongsToMany(Children, { through: ParentsChildren });
-    Children.belongsToMany(Parents, { through: ParentsChildren });
-
     return ParentsChildren;
 };
