@@ -34,18 +34,6 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
-    Providers.associate = (models) => {
-        Providers.hasMany(models.Children, {
-            onDelete: "cascade"
-        });
-    };
-
-    Providers.associate = (models) => {
-        Providers.hasMany(models.Parents, {
-            onDelete: "cascade"
-        });
-    };
-
     return Providers;
 
 }

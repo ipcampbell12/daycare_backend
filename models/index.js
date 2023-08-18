@@ -42,6 +42,20 @@ db.Sequelize = Sequelize;
 
 db.Parents = require('./Parents')(sequelize, Sequelize);
 db.Children = require('./Children')(sequelize, Sequelize);
+db.Providers = require('./Providers')(sequelize, Sequelize);
+
+db.Providers.hasMany(db.Children, { as: "Children" });
+db.Providers.hasMany(db.Parents, { as: "Parents" });
+
+db.Parents.belongsTo(db.Providers, {
+  foreignKey: "ProviderId",
+  as: "Provider"
+});
+
+db.Children.belongsTo(db.Providers, {
+  foreignKey: "ProviderId",
+  as: "Provider"
+});
 
 db.Parents.belongsToMany(db.Children, {
   through: "Parents_Children",
@@ -54,6 +68,7 @@ db.Children.belongsToMany(db.Parents, {
   as: "Children",
   foreignKey: "ParentId"
 });
+
 
 
 module.exports = db;
