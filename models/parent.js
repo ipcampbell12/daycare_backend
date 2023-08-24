@@ -23,12 +23,42 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Parent.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    phoneNumber: DataTypes.STRING
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Parent must have first name" },
+        notEmpty: { msg: "First name must not be empty" }
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Parent must have last name" },
+        notEmpty: { msg: "First name must not be empty" }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Parent must have email" },
+        notEmpty: { msg: "Email must not be empty" },
+        isEmail: { msg: "Must be valid email address" }
+      }
+    },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Parent must have phone number" },
+        notEmpty: { msg: "Phone number must not be empty" },
+      }
+    },
   }, {
     sequelize,
+    tableName: "parents",
     modelName: 'Parent',
   });
   return Parent;
