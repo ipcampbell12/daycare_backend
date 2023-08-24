@@ -1,22 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { Children } = require('../models');
+const { Parents } = require("../models/Parents");
 
-//get chidlren by provider
-router.get('/:providerId', async (req, res) => {
-    try {
-        const providerId = req.params.providerId;
-        const children = await Children.findAll({
-            where: {
-                providerId: providerId
-            }
-        });
-        res.json(children);
-    } catch (err) {
-        console.log(err);
-    }
-
-});
 
 //get individual child by id
 router.get('/:id', async (req, res) => {
@@ -48,7 +34,6 @@ router.post('/', async (req, res) => {
 
     try {
         const child = req.body;
-
         await Children.create(child);
 
         res.send(child);
@@ -59,13 +44,14 @@ router.post('/', async (req, res) => {
 });
 
 //add child to parent 
-router.post('/parents/:parentId/children/:childId', async (req, res) => {
-    try {
+// router.post('/parents/addChild', async (req, res) => {
+//     const { ParentId, ChildId } = req.body;
+//     try {
+//         const result = await 
+//     } catch (err) {
 
-    } catch (err) {
-
-    }
-});
+//     }
+// });
 
 //update child
 router.put("/:id", async (req, res) => {

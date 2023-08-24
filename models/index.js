@@ -49,12 +49,14 @@ db.Providers.hasMany(db.Parents, { as: "Parents" });
 
 db.Parents.belongsTo(db.Providers, {
   foreignKey: "ProviderId",
-  as: "Provider"
+  as: "Provider",
+  allowNull: false
 });
 
 db.Children.belongsTo(db.Providers, {
   foreignKey: "ProviderId",
-  as: "Provider"
+  as: "Provider",
+  allowNull: false
 });
 
 db.Parents.belongsToMany(db.Children, {

@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { Providers } = require('../models');
+const { Children } = require('../models');
+
+
 
 //get all providers
 router.get('/', async (req, res) => {
@@ -16,13 +19,30 @@ router.get('/', async (req, res) => {
 //get provider by id
 router.get('/:id', async (req, res) => {
     try {
-        const provider = await Providers.findByPk(req.params.id);
+        const provider = await Providers.findByPk(req.params.id, {
+            include: { model: Children, as: "Children" }
+        });
         res.status(200).json(provider);
     } catch (err) {
         console.log(err);
     }
 });
 
+//get chidlren by provider
+router.get('/:id/children', async (req, res) => {
+    try {
+        const providerId = req.params.providerId;
+        const children = await Children.findAll({
+            where: {
+                providerId: providerId
+            }
+        });
+        res.json(children);
+    } catch (err) {
+        console.log(err);
+    }
+
+});
 
 //get provider by firstName
 router.get('/:firstName', async (req, res) => {

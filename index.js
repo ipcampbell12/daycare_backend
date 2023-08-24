@@ -4,6 +4,8 @@ const db = require("./models");
 
 const app = express()
 
+//what's this for?
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan('tiny'))
 
@@ -13,6 +15,9 @@ app.use("/providers", providerRouter);
 
 const childrenRouter = require('./routes/Children');
 app.use("/children", childrenRouter);
+
+const ParentsRouter = require('./routes/Parents');
+app.use("/parents", ParentsRouter);
 
 
 const port = process.env.PORT || 3003;

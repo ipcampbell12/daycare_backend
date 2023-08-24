@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Parents } = require('../models');
+const { Children } = require('../models');
 
 //get individual parents
 router.get('/:id', async (req, res) => {
@@ -27,9 +28,25 @@ router.post('/', async (req, res) => {
 
     try {
         const parent = req.body;
-
         await Parents.create(parent);
 
+        res.send(parent);
+    } catch (err) {
+        console.log(err);
+    }
+
+});
+
+//linke parent to child
+router.post('/:id/children/:ChildId', async (req, res) => {
+
+    try {
+        const parent = await Parents.findByPk(req.params.id);
+        console.log(parent);
+        const child = await Children.findByPk(req.params.id);
+        console.log(child);
+
+        parent.addChild(child);
         res.send(parent);
     } catch (err) {
         console.log(err);
