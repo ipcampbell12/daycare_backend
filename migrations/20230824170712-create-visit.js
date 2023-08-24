@@ -1,34 +1,34 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */
+/** @type {import('DataTypes-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface, DataTypes) {
     await queryInterface.createTable('Visits', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: DataTypes.INTEGER
       },
       visitDate: {
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       },
       visitCost: {
-        type: Sequelize.DECIMAL
+        type: DataTypes.DECIMAL
       },
       paidFor: {
-        type: Sequelize.BOOLEAN
+        type: DataTypes.BOOLEAN
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       }
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface, DataTypes) {
     await queryInterface.dropTable('Visits');
   }
 };
