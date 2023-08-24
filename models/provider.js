@@ -19,8 +19,47 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Provider.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Provider must have first name" },
+        notEmpty: { msg: "First name must not be empty" }
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Provider must have last name" },
+        notEmpty: { msg: "Last name must not be empty" }
+      }
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Provider must have username" },
+        notEmpty: { msg: "Username name must not be empty" }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Provier must have password" },
+        notEmpty: { msg: "Password must not be empty" }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Provider must have email" },
+        notEmpty: { msg: "Email must not be empty" },
+        isEmail: { msg: "Must be valid email address" }
+      }
+    },
   }, {
     sequelize,
     tableName: 'providers',
