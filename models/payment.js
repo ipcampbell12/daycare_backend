@@ -19,10 +19,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Payment.init({
-    amount: DataTypes.DECIMAL,
-    paymentType: DataTypes.STRING
+    amount: {
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Payment must have amount" },
+        notEmpty: { msg: "Amount must not be empty" },
+        isDecimal: { msg: "Amoutn must be valid " }
+      }
+    },
+    paymentType: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Payment must have type" },
+        notEmpty: { msg: "Payment type cannot be empty" }
+      }
+    },
   }, {
     sequelize,
+    tableName: "payments",
     modelName: 'Payment',
   });
   return Payment;
