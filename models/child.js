@@ -21,11 +21,42 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Child.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    birthdate: DataTypes.DATE
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Child must have first name" },
+        notEmpty: { msg: "First name must not be empty" }
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Child must have last name" },
+        notEmpty: { msg: "Last name must not be empty" },
+      }
+    },
+    birthdate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Child must have a birthdate" },
+        notEmpty: { msg: "Birthdate must not be empty" },
+        isDate: { msg: "Must be a valid date" }
+      }
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Child must have status" },
+        notEmpty: { msg: "Status must not be empty" },
+      }
+    },
   }, {
     sequelize,
+    tableName: 'children',
     modelName: 'Child',
   });
   return Child;

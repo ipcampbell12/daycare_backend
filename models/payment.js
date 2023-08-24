@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Payment.init({
-    amount: DataTypes.DECIMAL
+    amount: DataTypes.DECIMAL,
+    paymentType: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Payment',
