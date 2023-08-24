@@ -36,6 +36,15 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: "Payment type cannot be empty" }
       }
     },
+    paymentDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Payment must have a date" },
+        notEmpty: { msg: "Date must not be empty" },
+        isDate: { msg: "Must be a valid date" }
+      }
+    },
   }, {
     sequelize,
     tableName: "payments",
