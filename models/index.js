@@ -38,38 +38,38 @@ Object.keys(db).forEach(modelName => {
 });
 
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+// db.Sequelize = Sequelize;
 
-db.Parents = require('./Parents')(sequelize, Sequelize);
-db.Children = require('./Children')(sequelize, Sequelize);
-db.Providers = require('./Providers')(sequelize, Sequelize);
+// db.Parents = require('./Parents')(sequelize, Sequelize);
+// db.Children = require('./Children')(sequelize, Sequelize);
+// db.Providers = require('./Providers')(sequelize, Sequelize);
 
-db.Providers.hasMany(db.Children, { as: "Children" });
-db.Providers.hasMany(db.Parents, { as: "Parents" });
+// db.Providers.hasMany(db.Children, { as: "Children" });
+// db.Providers.hasMany(db.Parents, { as: "Parents" });
 
-db.Parents.belongsTo(db.Providers, {
-  foreignKey: "ProviderId",
-  as: "Provider",
-  allowNull: false
-});
+// db.Parents.belongsTo(db.Providers, {
+//   foreignKey: "ProviderId",
+//   as: "Provider",
+//   allowNull: false
+// });
 
-db.Children.belongsTo(db.Providers, {
-  foreignKey: "ProviderId",
-  as: "Provider",
-  allowNull: false
-});
+// db.Children.belongsTo(db.Providers, {
+//   foreignKey: "ProviderId",
+//   as: "Provider",
+//   allowNull: false
+// });
 
-db.Parents.belongsToMany(db.Children, {
-  through: "Parents_Children",
-  as: "Parents",
-  foreignKey: "ChildId"
-});
+// db.Parents.belongsToMany(db.Children, {
+//   through: "Parents_Children",
+//   as: "Parents",
+//   foreignKey: "ChildId"
+// });
 
-db.Children.belongsToMany(db.Parents, {
-  through: "Parents_Children",
-  as: "Children",
-  foreignKey: "ParentId"
-});
+// db.Children.belongsToMany(db.Parents, {
+//   through: "Parents_Children",
+//   as: "Children",
+//   foreignKey: "ParentId"
+// });
 
 
 

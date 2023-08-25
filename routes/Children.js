@@ -6,10 +6,11 @@ const { Child, Parent } = require('../models');
 //get individual child by id
 router.get('/:id', async (req, res) => {
     try {
-        const child = await Children.findByPk(req.params.id);
+        const child = await Child.findByPk(req.params.id);
         res.status(200).json(child);
     } catch (err) {
         console.log(err);
+        return res.status(500).json({ error: "somethign went wrong, fool" });
     }
 });
 
@@ -17,13 +18,14 @@ router.get('/:id', async (req, res) => {
 //get child by first name (not working)
 router.get('/:firstName', async (req, res) => {
     try {
-        const child = await Children.findAll({
+        const child = await Child.findAll({
             where: { firstName: req.params.firstName }
         });
 
         res.send(child);
     } catch (err) {
         console.log(err);
+        return res.status(500).json({ error: "somethign went wrong, fool" });
     }
 });
 
@@ -33,11 +35,12 @@ router.post('/', async (req, res) => {
 
     try {
         const child = req.body;
-        await Children.create(child);
+        await Child.create(child);
 
         res.send(child);
     } catch (err) {
         console.log(err);
+        return res.status(500).json({ error: "somethign went wrong, fool" });
     }
 
 });
@@ -47,7 +50,7 @@ router.post('/', async (req, res) => {
 router.put("/:id", async (req, res) => {
     try {
 
-        const child = await Children.update({
+        const child = await Child.update({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             birthDate: req.body.birthDate,
@@ -60,19 +63,21 @@ router.put("/:id", async (req, res) => {
 
     } catch (err) {
         console.log(err);
+        return res.status(500).json({ error: "somethign went wrong, fool" });
     }
 });
 
 //delete child
 router.delete('/:id', async (req, res) => {
     try {
-        await Children.destroy({
+        await Child.destroy({
             where: { id: req.params.id }
         });
 
         res.send(`Child with id ${req.params.id} has been deleted`);
     } catch (err) {
         console.log(err);
+        return res.status(500).json({ error: "somethign went wrong, fool" });
     }
 })
 

@@ -18,6 +18,7 @@ router.get('/:id', async (req, res) => {
         res.status(200).json(parent);
     } catch (err) {
         console.log(err);
+        return res.status(500).json({ error: "somethign went wrong, fool" });
     }
 });
 
@@ -28,6 +29,7 @@ router.get('/', async (req, res) => {
         res.status(200).json(parentList);
     } catch (err) {
         console.log(err);
+        return res.status(500).json({ error: "somethign went wrong, fool" });
     }
 });
 
@@ -42,9 +44,10 @@ router.post('/', async (req, res) => {
         await ChildParent.create({ id, childId });
         child.addParent(parent);
 
-        res.send(parent);
+        return res.send(parent);
     } catch (err) {
         console.log(err);
+        return res.status(500).json({ error: "somethign went wrong, fool" });
     }
 
 });
@@ -66,6 +69,7 @@ router.put("/:id", async (req, res) => {
 
     } catch (err) {
         console.log(err);
+        return res.status(500).json({ error: "somethign went wrong, fool" });
     }
 });
 
@@ -78,6 +82,7 @@ router.delete('/:id', async (req, res) => {
         res.send(`Child with id ${req.params.id} has been deleted`);
     } catch (err) {
         console.log(err);
+        return res.status(500).json({ error: "somethign went wrong, fool" });
     }
 })
 
