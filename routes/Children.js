@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Children } = require('../models');
-const { Parents } = require("../models/Parents");
+const { Child, Parent } = require('../models');
 
 
 //get individual child by id
@@ -15,7 +14,7 @@ router.get('/:id', async (req, res) => {
 });
 
 
-//get child by first name
+//get child by first name (not working)
 router.get('/:firstName', async (req, res) => {
     try {
         const child = await Children.findAll({
@@ -43,15 +42,6 @@ router.post('/', async (req, res) => {
 
 });
 
-//add child to parent 
-// router.post('/parents/addChild', async (req, res) => {
-//     const { ParentId, ChildId } = req.body;
-//     try {
-//         const result = await 
-//     } catch (err) {
-
-//     }
-// });
 
 //update child
 router.put("/:id", async (req, res) => {

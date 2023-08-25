@@ -1,34 +1,46 @@
 const express = require('express');
 const router = express.Router();
-const { Parents } = require('../models');
-const { Children } = require('../models');
+const { Parent, Child, ChildParent } = require('../models');
 
-//get individual parents
+
+//get individual Parent
 router.get('/:id', async (req, res) => {
+    const id = req.params.id;
     try {
-        const parent = await Parents.findByPk(req.params.id);
+        const parent = await Parent.findOne({
+            where: { id },
+            include: {
+                model: Child,
+                as: "children",
+                attributes: { exclude: ['createdAt', 'updatedAt'] }
+            }
+        });
         res.status(200).json(parent);
     } catch (err) {
         console.log(err);
     }
 });
 
-//get all parents
+//get all Parents
 router.get('/', async (req, res) => {
     try {
-        const parentList = await Parents.findAll()
+        const parentList = await Parent.findAll()
         res.status(200).json(parentList);
     } catch (err) {
         console.log(err);
     }
 });
 
-//create parent
+//create parent and add to child
 router.post('/', async (req, res) => {
-
+    const { firstName, lastName, email, phoneNumber, childId } = req.body;
     try {
-        const parent = req.body;
-        await Parents.create(parent);
+        const parentToAdd = { firstName, lastName, email, phoneNumber };
+        const parent = await Parent.create(parentToAdd);
+        const id = parent.id;
+        const child = await Child.findOne({ where: { id: childId } });
+        await ChildParent.create({ id, childId });
+        child.addParent(parent);
 
         res.send(parent);
     } catch (err) {
@@ -37,22 +49,6 @@ router.post('/', async (req, res) => {
 
 });
 
-//linke parent to child
-router.post('/:id/children/:ChildId', async (req, res) => {
-
-    try {
-        const parent = await Parents.findByPk(req.params.id);
-        console.log(parent);
-        const child = await Children.findByPk(req.params.id);
-        console.log(child);
-
-        parent.addChild(child);
-        res.send(parent);
-    } catch (err) {
-        console.log(err);
-    }
-
-});
 
 router.put("/:id", async (req, res) => {
     try {
