@@ -2,7 +2,7 @@
 /** @type {import('DataTypes-cli').Migration} */
 module.exports = {
   async up(queryInterface, DataTypes) {
-    await queryInterface.createTable('Parents', {
+    await queryInterface.createTable('parents', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -21,6 +21,10 @@ module.exports = {
       phoneNumber: {
         type: DataTypes.STRING
       },
+      providerId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE
@@ -32,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, DataTypes) {
-    await queryInterface.dropTable('Parents');
+    await queryInterface.dropTable('parents');
   }
 };

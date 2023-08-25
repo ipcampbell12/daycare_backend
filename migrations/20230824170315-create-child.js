@@ -2,7 +2,7 @@
 /** @type {import('DataTypes-cli').Migration} */
 module.exports = {
   async up(queryInterface, DataTypes) {
-    await queryInterface.createTable('Children', {
+    await queryInterface.createTable('children', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -18,6 +18,14 @@ module.exports = {
       birthdate: {
         type: DataTypes.DATE
       },
+      isActive: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      providerId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE
@@ -29,6 +37,6 @@ module.exports = {
     });
   },
   async down(queryInterface, DataTypes) {
-    await queryInterface.dropTable('Children');
+    await queryInterface.dropTable('children');
   }
 };
