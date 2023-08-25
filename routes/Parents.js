@@ -35,9 +35,9 @@ router.get('/', async (req, res) => {
 
 //create parent and add to child
 router.post('/', async (req, res) => {
-    const { firstName, lastName, email, phoneNumber, childId } = req.body;
+    const { firstName, lastName, email, phoneNumber, childId, providerId } = req.body;
     try {
-        const parentToAdd = { firstName, lastName, email, phoneNumber };
+        const parentToAdd = { firstName, lastName, email, phoneNumber, providerId };
         const parent = await Parent.create(parentToAdd);
         const id = parent.id;
         const child = await Child.findOne({ where: { id: childId } });

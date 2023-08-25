@@ -1,14 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const { Providers } = require('../models');
-const { Children } = require('../models');
+const { Provider, Child } = require('../models');
 
 
 
-//get all providers
+
+//get all Provider
 router.get('/', async (req, res) => {
     try {
-        const providerList = await Providers.findAll();
+        const providerList = await Provider.findAll({
+            include: {
+                model: Child, as: "children", attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'providerId']
+                }
+            }
+        });
         res.send(providerList);
     } catch (err) {
         console.log(err);
@@ -19,8 +25,12 @@ router.get('/', async (req, res) => {
 //get provider by id
 router.get('/:id', async (req, res) => {
     try {
-        const provider = await Providers.findByPk(req.params.id, {
-            include: { model: Children, as: "Children" }
+        const provider = await Provider.findByPk(req.params.id, {
+            include: {
+                model: Child, as: "children", attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'providerId']
+                }
+            }
         });
         res.status(200).json(provider);
     } catch (err) {
@@ -29,15 +39,15 @@ router.get('/:id', async (req, res) => {
 });
 
 //get chidlren by provider
-router.get('/:id/children', async (req, res) => {
+router.get('/:id/Child', async (req, res) => {
     try {
         const providerId = req.params.providerId;
-        const children = await Children.findAll({
+        const Child = await Child.findAll({
             where: {
                 providerId: providerId
             }
         });
-        res.json(children);
+        res.json(Child);
     } catch (err) {
         console.log(err);
     }
@@ -47,7 +57,7 @@ router.get('/:id/children', async (req, res) => {
 //get provider by firstName
 router.get('/:firstName', async (req, res) => {
     try {
-        const provider = await Providers.findAll({
+        const provider = await Provider.findAll({
             where: { firstName: req.params.firstName }
         });
 
@@ -64,7 +74,7 @@ router.post('/', async (req, res) => {
     try {
         const provider = req.body;
 
-        await Providers.create(provider);
+        await Provider.create(provider);
 
         res.send(provider);
     } catch (err) {
@@ -75,7 +85,7 @@ router.post('/', async (req, res) => {
 
 router.put("/:id", async (req, res) => {
     try {
-        await Providers.update({
+        await Provider.update({
             firstName: req.body.firstName,
             lastName: req.body.firstName,
             username: req.body.username,
@@ -92,7 +102,7 @@ router.put("/:id", async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        await Providers.destroy({
+        await Provider.destroy({
             where: { id: req.params.id }
         });
 
