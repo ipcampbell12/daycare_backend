@@ -19,6 +19,9 @@ app.use("/children", childrenRouter);
 const ParentsRouter = require('./routes/Parents');
 app.use("/parents", ParentsRouter);
 
+const PaymentRouter = require('./routes/Payments');
+app.use("/payments", PaymentRouter);
+
 
 const port = process.env.PORT || 3003;
 

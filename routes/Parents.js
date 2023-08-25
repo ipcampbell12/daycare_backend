@@ -25,7 +25,13 @@ router.get('/:id', async (req, res) => {
 //get all Parents
 router.get('/', async (req, res) => {
     try {
-        const parentList = await Parent.findAll()
+        const parentList = await Parent.findAll({
+            include: {
+                model: Child,
+                as: "children",
+                attributes: { exclude: ['createdAt', 'updatedAt'] }
+            }
+        })
         res.status(200).json(parentList);
     } catch (err) {
         console.log(err);
