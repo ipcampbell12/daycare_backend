@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
 
       this.belongsTo(Parent, { foreignKey: "parentId", as: "parent" });
 
+      this.belongsTo(Invoice, { foreignKey: "invoiceId", as: 'invoice' });
+
       this.hasMany(Visit, { foreignKey: "paymentId", as: "visits", onDelete: 'cascade' })
     }
   }

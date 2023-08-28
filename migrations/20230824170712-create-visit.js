@@ -31,6 +31,10 @@ module.exports = {
         type: DataTypes.INTEGER,
         allowNull: false
       },
+      invoiceId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE
