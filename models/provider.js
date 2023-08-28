@@ -60,6 +60,14 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: { msg: "Must be valid email address" }
       }
     },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Parent must have phone number" },
+        notEmpty: { msg: "Phone number must not be empty" },
+      }
+    }
   }, {
     sequelize,
     tableName: 'providers',

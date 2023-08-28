@@ -56,6 +56,22 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: { msg: "Phone number must not be empty" },
       }
     },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Provider must have username" },
+        notEmpty: { msg: "Username name must not be empty" }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: "Provier must have password" },
+        notEmpty: { msg: "Password must not be empty" }
+      }
+    }
   }, {
     sequelize,
     tableName: "parents",
