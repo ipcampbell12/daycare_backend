@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { Payment } = require('../models/payment');
+const { Visit } = require('../models/visit');
 
 router.post('/', async (req, res) => {
     try {
-        const payment = req.body;
-        await Payment.create(payment);
+        const visit = req.body;
+        await Visit.create(visit);
 
-        return res.send(payment);
+        return res.send(visit);
 
     } catch (err) {
         console.log(err);
@@ -18,9 +18,9 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
 
     try {
-        const payments = await Payment.findAll();
+        const visits = await Visit.findAll();
 
-        return res.send(payments);
+        return res.send(visits);
     } catch (err) {
         console.log(err);
         return res.status(500).json(err);
