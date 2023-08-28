@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { Child, Parent } = require('../models');
+const { Child } = require('../models');
+const { generatePerson } = require('../utilities/faker');
 
 
 //get individual child by id
@@ -34,7 +35,11 @@ router.get('/:firstName', async (req, res) => {
 router.post('/', async (req, res) => {
 
     try {
-        const child = req.body;
+        // const child = req.body;
+
+        const { providerId } = req.body;
+        const fakeChild = generatePerson('Child');
+        const child = { ...fakeChild, ...providerId }
         await Child.create(child);
 
         res.send(child);

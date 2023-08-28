@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Provider, Child } = require('../models');
+const { generatePerson } = require('../utilities/faker');
 
 
 
@@ -72,8 +73,9 @@ router.get('/:firstName', async (req, res) => {
 router.post('/', async (req, res) => {
 
     try {
-        const provider = req.body;
+        //const provider = req.body;
 
+        const provider = generatePerson('Provider');
         await Provider.create(provider);
 
         res.send(provider);

@@ -56,5 +56,6 @@ function generatePeople(num) {
 //console.log(generatePeople(3));
 
 module.exports = {
-    generatePeople: generatePeople
+    generatePeople: generatePeople,
+    generatePerson: generatePerson
 };
