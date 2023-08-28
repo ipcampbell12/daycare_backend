@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     invoiceId: DataTypes.INTEGER
   }, {
     sequelize,
-    tableName: "parent_invoices",
+    tableName: "parents_invoices",
     modelName: 'Parent_Invoice',
   });
   return Parent_Invoice;
