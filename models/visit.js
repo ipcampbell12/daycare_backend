@@ -39,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     paidFor: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: false,
       validate: {
         notNull: { msg: "visit must have status" },
         notEmpty: { msg: "Status must not be empty" },

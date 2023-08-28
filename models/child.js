@@ -49,6 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     isActive: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+      defaultValue: true,
       validate: {
         notNull: { msg: "Child must have status" },
         notEmpty: { msg: "Status must not be empty" },

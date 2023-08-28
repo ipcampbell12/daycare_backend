@@ -21,6 +21,7 @@ module.exports = {
       isActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: true,
       },
       providerId: {
         type: DataTypes.INTEGER,

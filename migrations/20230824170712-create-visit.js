@@ -16,7 +16,8 @@ module.exports = {
         type: DataTypes.DECIMAL
       },
       paidFor: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       childId: {
         type: DataTypes.INTEGER,
