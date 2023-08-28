@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     visitDate: {
       type: DataTypes.DATE,
       allowNull: false,
+      defaultValue: DataTypes.NOW,
       validate: {
         notNull: { msg: "Visit must have a date" },
         notEmpty: { msg: "Date must not be empty" },

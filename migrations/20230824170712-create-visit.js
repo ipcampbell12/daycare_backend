@@ -10,7 +10,8 @@ module.exports = {
         type: DataTypes.INTEGER
       },
       visitDate: {
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
       },
       visitCost: {
         type: DataTypes.DECIMAL
@@ -29,11 +30,11 @@ module.exports = {
       },
       paymentId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
       },
       invoiceId: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
       },
       createdAt: {
         allowNull: false,
