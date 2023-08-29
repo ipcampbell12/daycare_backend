@@ -25,6 +25,9 @@ app.use("/payments", PaymentRouter);
 const VisitRouter = require('./routes/Visits');
 app.use("/visits", VisitRouter);
 
+const InvoiceRouter = require('./routes/Invoices');
+app.use("/invoices", InvoiceRouter);
+
 
 const port = process.env.PORT || 3003;
 
