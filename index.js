@@ -22,6 +22,9 @@ app.use("/parents", ParentsRouter);
 const PaymentRouter = require('./routes/Payments');
 app.use("/payments", PaymentRouter);
 
+const VisitRouter = require('./routes/Visits');
+app.use("/visits", VisitRouter);
+
 
 const port = process.env.PORT || 3003;
 

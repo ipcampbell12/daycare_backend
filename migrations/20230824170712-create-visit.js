@@ -14,7 +14,8 @@ module.exports = {
         defaultValue: DataTypes.NOW,
       },
       visitCost: {
-        type: DataTypes.DECIMAL
+        type: DataTypes.DECIMAL,
+        defaultValue: 25.00
       },
       paidFor: {
         type: DataTypes.BOOLEAN,

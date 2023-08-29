@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Child } = require('../models');
-const { generatePerson } = require('../utilities/faker');
+const { generatePerson, generatePeople } = require('../utilities/faker');
 
 
 //get individual child by id
@@ -33,16 +33,16 @@ router.get('/:firstName', async (req, res) => {
 
 //create child
 router.post('/', async (req, res) => {
-
+    console.log(Child)
     try {
         // const child = req.body;
 
         const { providerId } = req.body;
-        const fakeChild = generatePerson('Child');
-        const child = { ...fakeChild, ...providerId }
-        await Child.create(child);
+        const fakeChild = generatePerson('Child', providerId);
+        //console.log(fakeChild)
+        await Child.create(fakeChild);
 
-        res.send(child);
+        res.send(fakeChild);
     } catch (err) {
         console.log(err);
         return res.status(500).json({ error: "somethign went wrong, fool" });

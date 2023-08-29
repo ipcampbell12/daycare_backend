@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { Visit } = require('../models/visit');
+const { Visit } = require('../models');
 
 router.post('/', async (req, res) => {
     try {
+
         const visit = req.body;
         await Visit.create(visit);
 
@@ -29,3 +30,6 @@ router.get('/', async (req, res) => {
 
 
 module.exports = router;
+
+
+//learning: don't need to import the specific file, just the whole folder for models

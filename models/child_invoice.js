@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ Child, Invoice }) {
       // define association here
-      this.belongsToMany(Child, {
+      this.belongsTo(Child, {
         foreignKey: "childId",
         as: "child"
       })
-      this.belongsToMany(Invoice, {
+      this.belongsTo(Invoice, {
         foreignKey: "invoiceId",
         as: "invoice"
       })

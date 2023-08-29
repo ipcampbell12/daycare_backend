@@ -74,11 +74,10 @@ router.post('/', async (req, res) => {
 
     try {
         //const provider = req.body;
+        const fakeProvider = generatePerson('Provider');
+        await Provider.create(fakeProvider);
 
-        const provider = generatePerson('Provider');
-        await Provider.create(provider);
-
-        res.send(provider);
+        res.send(fakeProvider);
     } catch (err) {
         console.log(err);
     }

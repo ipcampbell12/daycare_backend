@@ -24,6 +24,9 @@ module.exports = {
       email: {
         type: DataTypes.STRING
       },
+      phoneNumber: {
+        type: DataTypes.STRING
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE

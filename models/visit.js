@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Provider, Payment, Child }) {
+    static associate({ Provider, Payment, Child, Invoice }) {
       // define association here
       this.belongsTo(Provider, { foreignKey: "providerId", as: "provider" });
       this.belongsTo(Payment, { foreignKey: "payementId", as: "payment" });
@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     visitCost: {
       type: DataTypes.DECIMAL,
       allowNull: false,
+      defaultValue: 25.00,
       validate: {
         notNull: { msg: "Vist must have cost" },
         notEmpty: { msg: "Cost must not be empty" },
