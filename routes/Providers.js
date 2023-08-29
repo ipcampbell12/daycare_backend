@@ -1,18 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const { Provider, Child } = require('../models');
+const { Provider, Child, Visit } = require('../models');
 const { generatePerson } = require('../utilities/faker');
 
 
 
 
-//get all Provider
+//get all Providers
 router.get('/', async (req, res) => {
     try {
         const providerList = await Provider.findAll({
             include: {
-                model: Child, as: "children", attributes: {
+                model:
+                    Child,
+                as: "children",
+                attributes: {
                     exclude: ['createdAt', 'updatedAt', 'providerId']
+                },
+                include: {
+                    model: Visit,
+                    as: 'visits',
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', 'providerId', 'childId', 'paymentId', 'invoiceId']
+                    }
+
                 }
             }
         });
@@ -28,8 +39,18 @@ router.get('/:id', async (req, res) => {
     try {
         const provider = await Provider.findByPk(req.params.id, {
             include: {
-                model: Child, as: "children", attributes: {
+                model: Child,
+                as: "children",
+                attributes: {
                     exclude: ['createdAt', 'updatedAt', 'providerId']
+                },
+                include: {
+                    model: Visit,
+                    as: 'visits',
+                    attributes: {
+                        exclude: ['createdAt', 'updatedAt', 'providerId', 'childId', 'paymentId', 'invoiceId']
+                    }
+
                 }
             }
         });

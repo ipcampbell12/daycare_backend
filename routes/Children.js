@@ -1,13 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const { Child } = require('../models');
+const { Child, Visit } = require('../models');
 const { generatePerson, generatePeople } = require('../utilities/faker');
 
 
 //get individual child by id
 router.get('/:id', async (req, res) => {
     try {
-        const child = await Child.findByPk(req.params.id);
+        const child = await Child.findByPk(req.params.id, {
+            include: {
+                model: Visit,
+                as: "visits",
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'providerId', 'childId', 'paymentId', 'invoiceId']
+                }
+            }
+        });
         res.status(200).json(child);
     } catch (err) {
         console.log(err);
