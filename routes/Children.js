@@ -23,6 +23,32 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+//get ALL children
+router.get('/', async (req, res) => {
+    try {
+        const children = await Child.findAll();
+        res.status(200).json(children);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: "somethign went wrong, fool" });
+    }
+});
+
+//get ALL children BY PROVIDER
+router.get('/providers/:id', async (req, res) => {
+    try {
+        const children = await Child.findAll({
+            where: {
+                providerId: req.params.id
+            }
+        });
+        res.status(200).json(children);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: "somethign went wrong, fool" });
+    }
+});
+
 
 //get child by first name (not working)
 router.get('/:firstName', async (req, res) => {
