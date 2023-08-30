@@ -16,6 +16,24 @@ router.post('/', async (req, res) => {
     }
 });
 
+//pay for visit
+router.put('/:id/pay', async (req, res) => {
+    try {
+
+        const visit = await Visit.update({
+            paidFor: true
+        }, {
+            where: { id: req.params.id }
+        })
+
+        return res.send(`Visit with id of ${req.params.id} was paid for`);
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json(err);
+    }
+});
+
 //get ALL visits
 router.get('/', async (req, res) => {
 
