@@ -21,6 +21,12 @@ module.exports = {
       phoneNumber: {
         type: DataTypes.STRING
       },
+      username: {
+        type: DataTypes.STRING
+      },
+      password: {
+        type: DataTypes.STRING
+      },
       providerId: {
         type: DataTypes.INTEGER,
         allowNull: false

@@ -44,13 +44,15 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     //const { firstName, lastName, email, phoneNumber, childId, providerId } = req.body;
     const { childId, providerId } = req.body;
+
     try {
         //const parentToAdd = { firstName, lastName, email, phoneNumber, providerId };
-        const fakeParent = { ...generatePerson('Parent'), ...providerId }
+        const fakeParent = { ...generatePerson('Parent'), providerId: providerId }
         const parent = await Parent.create(fakeParent);
-        const id = parent.id;
         const child = await Child.findOne({ where: { id: childId } });
-        await ChildParent.create({ id, childId });
+
+        //when you use the add function created by sequelize, you don't need to create a separate association object; that will result in duplicates!
+        //await ChildParent.create({ id, childId });
         child.addParent(parent);
 
         return res.send(parent);
@@ -84,11 +86,19 @@ router.put("/:id", async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        await Children.destroy({
+
+        //destroy method only available on model, not on instance of model
+        //destroy is class method?
+        await Parent.destroy({
             where: { id: req.params.id }
         });
 
-        res.send(`Child with id ${req.params.id} has been deleted`);
+        await ChildParent.destroy({
+            where: { parentId: req.params.id }
+        })
+
+        res.send(`Parent with id ${req.params.id} has been deleted`);
+
     } catch (err) {
         console.log(err);
         return res.status(500).json({ error: "somethign went wrong, fool" });

@@ -14,8 +14,9 @@ router.post('/', async (req, res) => {
         console.log(err);
         return res.status(500).json(err);
     }
-})
+});
 
+//get ALL visits
 router.get('/', async (req, res) => {
 
     try {
@@ -26,7 +27,41 @@ router.get('/', async (req, res) => {
         console.log(err);
         return res.status(500).json(err);
     }
-})
+});
+
+//get ALL visits BY CHILD
+router.get('/children/:id', async (req, res) => {
+
+    try {
+        const visits = await Visit.findAll({
+            where: {
+                childId: req.params.id
+            }
+        });
+
+        return res.send(visits);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json(err);
+    }
+});
+
+//get ALL visits BY PROVIDER
+router.get('/providers/:id', async (req, res) => {
+
+    try {
+        const visits = await Visit.findAll({
+            where: {
+                providerId: req.params.id
+            }
+        });
+
+        return res.send(visits);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json(err);
+    }
+});
 
 
 module.exports = router;

@@ -14,15 +14,17 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(Provider, { foreignKey: "providerId", as: "provider" });
       this.hasMany(Visit, { foreignKey: "childId", as: "visits", onDelete: "cascade" });
       this.belongsToMany(Parent, {
-        through: "children_parents",
         foreignKey: "childId",
-        as: "parents"
+        through: "children_parents",
+        as: "parents",
+        onDelete: 'cascade'
       });
 
       this.belongsToMany(Invoice, {
         through: "children_invoices",
         foreignKey: "childId",
-        as: "invoices"
+        as: "invoices",
+        onDelete: 'cascade'
       });
     }
   }
