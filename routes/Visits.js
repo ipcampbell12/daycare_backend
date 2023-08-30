@@ -64,6 +64,43 @@ router.get('/providers/:id', async (req, res) => {
 });
 
 
+//get UNPAID visits BY PROVIDER 
+router.get('/providers/:id/unpaid', async (req, res) => {
+
+    try {
+        const visits = await Visit.findAll({
+            where: {
+                providerId: req.params.id,
+                paidFor: false
+            }
+        });
+
+        return res.send(visits);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json(err);
+    }
+});
+
+//get PAID visits BY PROVIDER 
+router.get('/providers/:id/paid', async (req, res) => {
+
+    try {
+        const visits = await Visit.findAll({
+            where: {
+                providerId: req.params.id,
+                paidFor: true
+            }
+        });
+
+        return res.send(visits);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json(err);
+    }
+});
+
+
 module.exports = router;
 
 
